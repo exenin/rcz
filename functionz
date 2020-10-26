@@ -1,0 +1,16 @@
+export VAGRANT_HOME="/opt/volumes/disk1/vagrant_home/"
+
+
+function kdserv() {
+     s=$1;
+     kctl get $s| cut -d' '  -f1|xargs kubectl delete $s
+}
+
+function kctll(){
+	for pod in $(kubectl get po | cut -d' ' -f1 | grep -v NAME ); do
+		echo $pod
+		kubectl logs $pod
+		echo '------------'
+	done
+}
+
