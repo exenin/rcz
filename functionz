@@ -1,5 +1,18 @@
+#!/bin/bash
+
+#
+# NOtE
+# Please try keep function alphabetically ordered tanx
+
 export VAGRANT_HOME="/opt/volumes/disk1/vagrant_home/"
 
+
+function gcp-docker(){
+
+  gcloud auth login     
+  gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://us.gcr.io
+
+}
 
 function kdserv() {
      s=$1;
@@ -14,3 +27,22 @@ function kctll(){
 	done
 }
 
+
+function rczsetup(){
+	echo 'install some stuff'
+	(
+  set -x; cd "$(mktemp -d)" &&
+  OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
+  ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
+  curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/krew.tar.gz" &&
+  tar zxvf krew.tar.gz &&
+  KREW=./krew-"${OS}_${ARCH}" &&
+  "$KREW" install krew
+)
+	
+        kubectl krew install ctx
+	kubectl krew install ns
+	sudo apt install fzf
+
+
+}
