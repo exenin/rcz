@@ -1,0 +1,4 @@
+aliases
+envs
+functionz
+paths
