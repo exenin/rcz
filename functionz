@@ -53,3 +53,7 @@ function kubetools(){
 	sudo mv argocd-linux-amd64 /usr/local/bin/argocd; sudo chmod +x /usr/local/bin/argocd
 
 }
+
+function rczupdate(){
+  cd ~/.rcz; git pull
+}

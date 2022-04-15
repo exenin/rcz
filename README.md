@@ -1,4 +1,4 @@
-# rcz: Random Control Z
+# rcz: Run Command Z
 A project for random environment tooling
 
 ## STEP 1 install:
