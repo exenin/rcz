@@ -1,10 +1,10 @@
 # rcz: Random Control Z
 A project for random environment tooling
 
-## install:
+## STEP 1 install:
 curl https://raw.githubusercontent.com/exenin/rcz/main/install | bash -
 
-
-for i in $(cat ~/.rcz/f);do source ~/.rcz/$i; done
+### STEP 2 Add to ~/.bashrc or ~/.zshrc
+source ~/.rcz/sourceme
 
 
