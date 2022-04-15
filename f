@@ -1,4 +1,0 @@
-aliases
-envs
-functionz
-paths

@@ -1,0 +1,5 @@
+aliases.sh
+envs.sh
+functions.sh
+paths.sh
+kubez.sh
