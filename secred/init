@@ -1,2 +1,7 @@
 #!/bin/bash
+function get_sec_lists {
+    sudo mkdir /usr/share/tools 
+    sudo chown $USER: /usr/share/tools
+    git clone https://github.com/danielmiessler/SecLists.git /usr/share/tools/seclists
+}
 

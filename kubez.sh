@@ -22,10 +22,28 @@ function kdserv() {
 function kctll(){
 	for pod in $(kubectl get po | cut -d' ' -f1 | grep -v NAME ); do
 		echo $pod
-		kubectl logs $pod
+		kubectl logs $pod | sed "s/^/$pod: > /g"
 		echo '------------'
 	done
 }
+
+function kctll(){
+	for pod in $(kubectl get po | cut -d' ' -f1 | grep -v NAME ); do
+		echo $pod
+		kubectl logs $pod | sed "s/^/$pod: > /g" 
+		echo '------------'
+	done
+}
+
+
+function kctllf(){
+	for pod in $(kubectl get po | cut -d' ' -f1 | grep -v NAME ); do
+		echo $pod
+		kubectl logs -f $pod | sed "s/^/$pod: > /g" &
+		echo '------------'
+	done
+}
+
 
 function rczsetup(){
 	kubetools
@@ -33,15 +51,15 @@ function rczsetup(){
 function kubetools(){
 	echo 'install some stuff'
 	# KREW
-(
-  set -x; cd "$(mktemp -d)" &&
-  OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
-  ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
-  KREW="krew-${OS}_${ARCH}" &&
-  curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" &&
-  tar zxvf "${KREW}.tar.gz" &&
-  ./"${KREW}" install krew
-)
+	(
+	  set -x; cd "$(mktemp -d)" &&
+	  OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
+	  ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
+	  KREW="krew-${OS}_${ARCH}" &&
+	  curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" &&
+	  tar zxvf "${KREW}.tar.gz" &&
+	  ./"${KREW}" install krew
+	)
 	
         kubectl krew install ctx
 	kubectl krew install ns
@@ -49,8 +67,12 @@ function kubetools(){
 
 	cd /tmp/; 
 	argourl=https://github.com/argoproj/argo-cd/releases/download/v2.3.3/argocd-linux-amd64
-	wget $argourl
-	sudo mv argocd-linux-amd64 /usr/local/bin/argocd; sudo chmod +x /usr/local/bin/argocd
+	if [ ! $(argocd version | grep argocd) ]; then
+		wget $argourl
+       		sudo mv argocd-linux-amd64 /usr/local/bin/argocd; sudo chmod +x /usr/local/bin/argocd
+	fi
+
+	 brew install derailed/k9s/k9s
 
 }
 
