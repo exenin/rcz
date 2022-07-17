@@ -4,7 +4,6 @@
 # NOtE
 # Please try keep function alphabetically ordered tanx
 
-export VAGRANT_HOME="/opt/volumes/disk1/vagrant_home/"
 
 
 function gcp-docker(){
@@ -78,4 +77,20 @@ function kubetools(){
 
 function rczupdate(){
   cd ~/.rcz; git pull
+}
+
+function kubemergeconfs(){
+	echo "Kube Merge Configs"
+	ls ~/.kube/configs.d || mkdir ~/.kube/configs.d  2>/dev/null
+	run=$1
+	if [[ "$run" ]]; then
+   	    dr="$HOME/.kube/configs.d"; xdrpath="$HOME/.kube/config"; for i in $(ls $dr); do xdrpath="$xdrpath:$dr/$i"; done  ; echo $xdrpath
+        KUBECONFIG=$xdrpath kubectl config view --flatten > /tmp/config
+		mv /tmp/config ~/.kube/config
+		rm kube/configs.d/*
+	else;
+	    echo "no run"
+	
+		echo "Put all kubeconfigs in ~/.kube/configs.d/ and rerun this command with approve:  $ kubemergeconfs approve " 
+	fi
 }
