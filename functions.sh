@@ -25,6 +25,5 @@ function tvm(){
 	v=$1
 	ls ~/.tvm/$v/terraform || downloadtf $v
  	sudo rm /usr/local/bin/terraform
-
         sudo ln -s ~/.tvm/$v/terraform /usr/local/bin/terraform
 }

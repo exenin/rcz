@@ -81,11 +81,16 @@ function rczupdate(){
 
 function kubemergeconfs(){
 	echo "Kube Merge Configs"
-	ls ~/.kube/configs.d || mkdir ~/.kube/configs.d  2>/dev/null
+	ls ~/.kube/configs.d || mkdir ~/.kube/configs.d  #2>/dev/null
 	run=$1
 	if [[ "$run" ]]; then
-   	    dr="$HOME/.kube/configs.d"; xdrpath="$HOME/.kube/config"; for i in $(ls $dr); do xdrpath="$xdrpath:$dr/$i"; done  ; echo $xdrpath
-        KUBECONFIG=$xdrpath kubectl config view --flatten > /tmp/config
+   	    dr="$HOME/.kube/configs.d"; xdrpath="$HOME/.kube/config"; 
+	    for i in $(ls $dr); 
+	      do 
+		      xdrpath="$xdrpath:$dr/$i"; 
+	      done  ; 
+	    echo $xdrpath
+            KUBECONFIG=$xdrpath kubectl config view --flatten > /tmp/config
 		mv /tmp/config ~/.kube/config
 		rm kube/configs.d/*
 	else;

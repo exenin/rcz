@@ -4,3 +4,4 @@ functions.sh
 paths.sh
 kubez.sh
 installers.sh
+gcloud.sh
