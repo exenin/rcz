@@ -1,5 +1,9 @@
 #!/bin/bash
 
+function dockerlint(){
+    bash -x ~/.rcz/scripts/hadolint.sh $1
+}
+
 function get_container_scanning_tools(){
 
 	echo anchore - gryp
