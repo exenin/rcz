@@ -36,7 +36,7 @@ ${COLOR_CYAN}RCZ Development Environment${COLOR_RESET}
 A comprehensive development environment setup and management tool.
 
 ${COLOR_GREEN}Usage:${COLOR_RESET}
-  rcz_help [topic]        Show help for specific topic
+  rcz_help [topic]        Show help for specific topic${COLOR_RESET}
   
 ${COLOR_GREEN}Available Topics:${COLOR_RESET}
   install                 Installation and setup guide
@@ -84,7 +84,7 @@ ${COLOR_GREEN}Initial Setup:${COLOR_RESET}
    ~/.rcz/bin/setup
 
 ${COLOR_GREEN}Available Installation Commands:${COLOR_RESET}
-  install_tools <tool>   Install specific development tool
+  install_tools <tool>   Install specific development tool${COLOR_RESET}
   
 ${COLOR_GREEN}Supported Tools:${COLOR_RESET}
   - node/nodejs          Install Node.js via nvm
@@ -94,7 +94,7 @@ ${COLOR_GREEN}Supported Tools:${COLOR_RESET}
   - docker              Install Docker
 
 ${COLOR_GREEN}Example Usage:${COLOR_RESET}
-  install_tools node     Install Node.js
+  install_tools node     Install Node.js${COLOR_RESET}
   install_tools python   Install Python
 EOF
 }
@@ -204,7 +204,7 @@ ${COLOR_GREEN}Usage Examples:${COLOR_RESET}
 ${COLOR_GREEN}Environment Variables:${COLOR_RESET}
   GITLAB_USER            Default GitLab username
   GITLAB_TOKEN           Default GitLab token
-  GITLAB_URL            Default GitLab URL
+  GITLAB_URL             Default GitLab URL
 EOF
 }
 
