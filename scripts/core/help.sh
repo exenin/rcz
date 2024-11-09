@@ -56,6 +56,7 @@ ${COLOR_GREEN}Available Topics:${COLOR_RESET}
     - k8s_logs               View pod logs
     - k8s_exec               Execute command in pod
   gitlab                  GitLab integration tools
+  secrets                 One-pass secrets management
     - gitlab_docker_login    Login to GitLab container registry
     - gitlab_helm_login      Configure Helm for GitLab registry
     - gitlab_admin_token     Get GitLab admin token
@@ -81,6 +82,11 @@ Kubernetes:
   kexec                  kubectl exec -it
 
 For detailed help on any topic, run: rcz_help <topic>
+  secrets                 One-pass secrets management
+    - secrets_auth           Authenticate with secrets manager
+    - secrets_create_sa      Create a service account
+    - secrets_create_vault   Create a default vault
+
 EOF
 }
 
@@ -232,4 +238,36 @@ if [ -n "$BASH_VERSION" ]; then
     export -f _rcz_help_cloud
     export -f _rcz_help_kubernetes
     export -f _rcz_help_gitlab
-fi
+}
+
+_rcz_help_secrets() {
+    cat << EOF
+${COLOR_CYAN}RCZ Secrets Management${COLOR_RESET}
+
+${COLOR_GREEN}Available Commands:${COLOR_RESET}
+  secrets_auth           Authenticate with secrets manager
+  secrets_create_sa      Create a service account
+  secrets_create_vault   Create a default vault
+
+${COLOR_GREEN}Usage Examples:${COLOR_RESET}
+1. Authenticate with Secrets Manager:
+   secrets_auth
+
+2. Create a Service Account:
+   secrets_create_sa <service_account_name>
+
+3. Create a Default Vault:
+   secrets_create_vault <vault_name>
+
+EOF
+}
+
+if [ -n "$BASH_VERSION" ]; then
+    export -f rcz_help
+    export -f _rcz_help_main
+    export -f _rcz_help_install
+    export -f _rcz_help_tools
+    export -f _rcz_help_cloud
+    export -f _rcz_help_kubernetes
+    export -f _rcz_help_gitlab
+    export -f _rcz_help_secrets
