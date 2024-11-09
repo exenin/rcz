@@ -41,7 +41,12 @@ log_debug() {
 safe_source() {
     if [ -f "$1" ]; then
         # Use . instead of source for better compatibility
-        . "$1" 2>/dev/null || log_warning "Error sourcing: $1 (file exists: $(if [ -f "$1" ]; then echo "yes"; else echo "no"; fi))"
+        if ! . "$1"; then
+            log_warning "Error sourcing: $1 (file exists: $(if [ -f "$1" ]; then echo "yes"; else echo "no"; fi))"
+            log_debug "Sourcing failed for: $1"
+        else
+            log_debug "Successfully sourced: $1"
+        fi
     else
         log_debug "File not found: $1"
     fi
