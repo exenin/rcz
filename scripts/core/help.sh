@@ -238,6 +238,7 @@ if [ -n "$BASH_VERSION" ]; then
     export -f _rcz_help_cloud
     export -f _rcz_help_kubernetes
     export -f _rcz_help_gitlab
+    export -f _rcz_help_secrets
 fi
 
 _rcz_help_secrets() {
@@ -261,13 +262,3 @@ ${COLOR_GREEN}Usage Examples:${COLOR_RESET}
 
 EOF
 }
-
-if [ -n "$BASH_VERSION" ]; then
-    export -f rcz_help
-    export -f _rcz_help_main
-    export -f _rcz_help_install
-    export -f _rcz_help_tools
-    export -f _rcz_help_cloud
-    export -f _rcz_help_kubernetes
-    export -f _rcz_help_gitlab
-    export -f _rcz_help_secrets
