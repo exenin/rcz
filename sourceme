@@ -82,11 +82,13 @@ if [ -t 0 ]; then
 fi
 
 # Export functions one by one instead of all at once
-export -f log_info
-export -f log_warning
-export -f log_error
-export -f log_debug
-export -f safe_source
+if [ -n "$BASH_VERSION" ]; then
+    export -f log_info
+    export -f log_warning
+    export -f log_error
+    export -f log_debug
+    export -f safe_source
+fi
 
 # Re-enable error checking if needed
 if [[ "${RCZ_STRICT:-0}" == "1" ]]; then
