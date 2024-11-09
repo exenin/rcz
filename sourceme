@@ -66,6 +66,9 @@ for script in "${RCZ_SCRIPTS}/core"/*.sh; do
     safe_source "$script"
 done
 
+# Source help functions
+safe_source "${RCZ_SCRIPTS}/core/help_functions.sh"
+
 # Source tool scripts
 for script in "${RCZ_SCRIPTS}/tools"/*.sh; do
     safe_source "$script"
