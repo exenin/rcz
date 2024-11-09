@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Define color variables
+COLOR_CYAN='\033[0;36m'
+COLOR_GREEN='\033[0;32m'
+COLOR_RESET='\033[0m'
+
 rcz_help() {
     local topic="${1:-}"
     
