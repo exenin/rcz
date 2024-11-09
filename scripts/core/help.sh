@@ -36,7 +36,7 @@ ${COLOR_CYAN}RCZ Development Environment${COLOR_RESET}
 A comprehensive development environment setup and management tool.
 
 ${COLOR_GREEN}Usage:${COLOR_RESET}
-  rcz_help [topic]        Show help for specific topic
+  rcz_help [topic]        Show help for specific topic${COLOR_RESET}
   
 ${COLOR_GREEN}Available Topics:${COLOR_RESET}
   install                 Installation and setup guide
