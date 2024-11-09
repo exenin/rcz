@@ -47,9 +47,9 @@ ${COLOR_GREEN}Available Topics:${COLOR_RESET}
 
 ${COLOR_GREEN}Quick Reference:${COLOR_RESET}
 Development:
-  mkcd <dir>             Create and change to directory
-  extract <file>         Extract any archive file
-  gclone <repo>          Clone and cd into repository
+  mkcd <dir>             Create and change to directory${COLOR_RESET}
+  extract <file>         Extract any archive file${COLOR_RESET}
+  gclone <repo>          Clone and cd into repository${COLOR_RESET}
 
 Docker:
   d                      docker
@@ -84,7 +84,7 @@ ${COLOR_GREEN}Initial Setup:${COLOR_RESET}
    ~/.rcz/bin/setup
 
 ${COLOR_GREEN}Available Installation Commands:${COLOR_RESET}
-  install_tools <tool>   Install specific development tool
+  install_tools <tool>   Install specific development tool${COLOR_RESET}
   
 ${COLOR_GREEN}Supported Tools:${COLOR_RESET}
   - node/nodejs          Install Node.js via nvm
