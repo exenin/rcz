@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#!/bin/bash
-
 # Development paths
 export DEV_HOME="${HOME}/dev"
 export TOOLS_DIR="${DEV_HOME}/tools"
