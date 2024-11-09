@@ -20,4 +20,6 @@ gitlab_admin_token() {
          | jq -r '.access_token'
 }
 
-export -f gitlab_admin_token 
+if [ -n "$BASH_VERSION" ]; then
+    export -f gitlab_admin_token
+fi
