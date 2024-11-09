@@ -238,7 +238,7 @@ if [ -n "$BASH_VERSION" ]; then
     export -f _rcz_help_cloud
     export -f _rcz_help_kubernetes
     export -f _rcz_help_gitlab
-}
+fi
 
 _rcz_help_secrets() {
     cat << EOF
