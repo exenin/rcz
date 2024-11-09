@@ -204,10 +204,12 @@ EOF
 }
 
 # Fix the export syntax
-export -f rcz_help
-export -f _rcz_help_main
-export -f _rcz_help_install
-export -f _rcz_help_tools
-export -f _rcz_help_cloud
-export -f _rcz_help_kubernetes
-export -f _rcz_help_gitlab
+if [ -n "$BASH_VERSION" ]; then
+    export -f rcz_help
+    export -f _rcz_help_main
+    export -f _rcz_help_install
+    export -f _rcz_help_tools
+    export -f _rcz_help_cloud
+    export -f _rcz_help_kubernetes
+    export -f _rcz_help_gitlab
+fi

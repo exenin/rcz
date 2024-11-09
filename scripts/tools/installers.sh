@@ -105,9 +105,11 @@ install_tools() {
 }
 
 # Export functions individually
-export -f install_tools
-export -f install_node
-export -f install_python
-export -f install_rust
-export -f install_go
-export -f install_docker
+if [ -n "$BASH_VERSION" ]; then
+    export -f install_tools
+    export -f install_node
+    export -f install_python
+    export -f install_rust
+    export -f install_go
+    export -f install_docker
+fi
