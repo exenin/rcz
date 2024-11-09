@@ -26,6 +26,14 @@ export PATH="${TOOLS_DIR}/bin:${PATH}"
 # Add go bin if it exists
 [ -d "${HOME}/go/bin" ] && export PATH="${HOME}/go/bin:${PATH}"
 
+# Source functions script
+if [ -f "${SCRIPTS_DIR}/functions.sh" ]; then
+    . "${SCRIPTS_DIR}/functions.sh"
+    log_info "Sourced functions.sh"
+else
+    log_warning "functions.sh not found in ${SCRIPTS_DIR}"
+fi
+
 log_info "Sourcing paths.sh completed"
 
 # Add npm global bin if it exists
