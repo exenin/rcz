@@ -24,4 +24,6 @@ gitlab_helm_login() {
     helm repo update
 }
 
-export -f gitlab_helm_login 
+if [ -n "$BASH_VERSION" ]; then
+    export -f gitlab_helm_login
+fi
