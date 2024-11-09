@@ -38,3 +38,4 @@ __pycache__/
 # Package manager directories
 node_modules/
 vendor/
+.aider*
