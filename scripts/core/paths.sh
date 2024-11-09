@@ -1,6 +1,6 @@
 #!/bin/bash
 
-log_info "Sourcing paths.sh"
+log_info "Sourcing paths.sh started"
 
 # Development paths
 export DEV_HOME="${HOME}/dev"
@@ -25,6 +25,8 @@ export PATH="${TOOLS_DIR}/bin:${PATH}"
 
 # Add go bin if it exists
 [ -d "${HOME}/go/bin" ] && export PATH="${HOME}/go/bin:${PATH}"
+
+log_info "Sourcing paths.sh completed"
 
 # Add npm global bin if it exists
 [ -d "${HOME}/.npm-global/bin" ] && export PATH="${HOME}/.npm-global/bin:${PATH}"
