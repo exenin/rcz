@@ -59,7 +59,7 @@ safe_source "${RCZ_SCRIPTS}/core/envs.sh"
 safe_source "${RCZ_SCRIPTS}/core/hello.sh"
 
 # Source functions script
-safe_source "${RCZ_SCRIPTS}/functions.sh"
+safe_source "${RCZ_HOME}/scripts/core/functions.sh"
 
 # Source core scripts
 for script in "${RCZ_SCRIPTS}/core"/*.sh; do
