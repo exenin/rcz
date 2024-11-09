@@ -1,5 +1,7 @@
 #!/bin/bash
 
+log_info "Sourcing paths.sh"
+
 # Development paths
 export DEV_HOME="${HOME}/dev"
 export TOOLS_DIR="${DEV_HOME}/tools"
