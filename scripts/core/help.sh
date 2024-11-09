@@ -40,10 +40,25 @@ ${COLOR_GREEN}Usage:${COLOR_RESET}
   
 ${COLOR_GREEN}Available Topics:${COLOR_RESET}
   install                 Installation and setup guide
+    - install_tools <tool>   Install specific development tool
   tools                   Development tools and utilities
+    - mkcd <dir>             Create and change to directory
+    - extract <file>         Extract any archive file
+    - gclone <repo>          Clone and cd into repository
   cloud                   Cloud provider tools (GCloud, AWS)
+    - gcloud_auth            Authenticate with Google Cloud
+    - gcloud_project         Set Google Cloud project
+    - gcloud_cluster         Get cluster credentials
   kubernetes              Kubernetes commands and utilities
+    - kns                    Change/view namespace
+    - kctx                   Change/view context
+    - k8s_pods               List pods in namespace
+    - k8s_logs               View pod logs
+    - k8s_exec               Execute command in pod
   gitlab                  GitLab integration tools
+    - gitlab_docker_login    Login to GitLab container registry
+    - gitlab_helm_login      Configure Helm for GitLab registry
+    - gitlab_admin_token     Get GitLab admin token
 
 ${COLOR_GREEN}Quick Reference:${COLOR_RESET}
 Development:
