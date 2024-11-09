@@ -9,7 +9,7 @@ gitlab_admin_token() {
         log_error "GitLab URL, admin username and password are required"
         log_info "Usage: gitlab_admin_token <gitlab_url> <admin_user> <admin_password>"
         return 1
-    }
+    fi
     
     log_info "Getting admin token from GitLab: $gitlab_url"
     
