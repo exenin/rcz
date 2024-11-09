@@ -1,7 +1,13 @@
 aliases.sh
 envs.sh
 functions.sh
-paths.sh
-kubez.sh
-installers.sh
 gcloud.sh
+gitlab-get-admin-token.sh
+gitlab-docker-login.sh
+
+gitlab-helm-login.sh
+installers.sh
+kubez.sh
+paths.sh
+
+devtools.sh

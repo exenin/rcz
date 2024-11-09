@@ -27,3 +27,13 @@ function tvm(){
  	sudo rm /usr/local/bin/terraform
         sudo ln -s ~/.tvm/$v/terraform /usr/local/bin/terraform
 }
+
+function 1pass_signin(){
+	eval $(op signin -f ) 
+}
+function set_ai_env_keys() {
+	1pass_signin
+	export ANTHROPIC_API_KEY=$(op read op://Personal/anthropic-claude-api-personal/credential)
+	export OPENAI_API_KEY=$(op read op://Personal/openai/credential)
+	export GEMINI_API_KEY=$(op read op://Personal/APIGOOGLEGeminiAPICredential/credential)
+}

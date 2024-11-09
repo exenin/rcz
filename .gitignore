@@ -1,0 +1,40 @@
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs and databases
+*.log
+*.sqlite
+
+# Environment files
+.env
+.env.local
+
+# Tool-specific files
+.tool-versions
+.python-version
+.ruby-version
+.node-version
+
+# Build outputs
+dist/
+build/
+*.o
+*.pyc
+__pycache__/
+
+# Package manager directories
+node_modules/
+vendor/

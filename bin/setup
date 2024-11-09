@@ -1,0 +1,101 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# Load environment
+source "$(dirname "$0")/../scripts/sourceme"
+
+setup_package_manager() {
+    if [[ "$OSTYPE" == "darwin"* ]] && ! command -v brew >/dev/null; then
+        log_info "Installing Homebrew..."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        
+        # Add Homebrew to PATH for the current session
+        eval "$(/opt/homebrew/bin/brew shellenv)" 2>/dev/null || eval "$(/usr/local/bin/brew shellenv)"
+    fi
+}
+
+setup_git_config() {
+    log_info "Configuring Git..."
+    
+    # Configure git if needed
+    if [ -z "$(git config --global user.name)" ]; then
+        read -p "Enter your Git name: " git_name
+        git config --global user.name "$git_name"
+    fi
+
+    if [ -z "$(git config --global user.email)" ]; then
+        read -p "Enter your Git email: " git_email
+        git config --global user.email "$git_email"
+    fi
+
+    # Set some sensible git defaults
+    git config --global core.editor "${EDITOR}"
+    git config --global init.defaultBranch main
+    git config --global pull.rebase false
+    git config --global core.autocrlf input
+    git config --global core.fileMode true
+    git config --global color.ui auto
+}
+
+setup_vim() {
+    if [ ! -f "${HOME}/.vimrc" ]; then
+        log_info "Setting up Vim configuration..."
+        cat > "${HOME}/.vimrc" << 'EOF'
+set nocompatible
+syntax on
+set number
+set ruler
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+set expandtab
+set shiftwidth=4
+set softtabstop=4
+set autoindent
+set backspace=indent,eol,start
+set listchars=tab:→\ ,space:·,nbsp:␣,trail:•,precedes:«,extends:»
+set showmatch
+set wildmenu
+set wildmode=list:longest
+set history=1000
+EOF
+    fi
+}
+
+setup_shell() {
+    # Add our sourceme to shell rc file
+    local shell_rc="${HOME}/.$(basename "$SHELL")rc"
+    local source_line="source $(realpath "$(dirname "$0")/../sourceme)"
+    
+    if [ -f "$shell_rc" ] && ! grep -q "$source_line" "$shell_rc"; then
+        log_info "Adding sourceme to $shell_rc"
+        echo -e "\n# RCZ environment setup\n$source_line" >> "$shell_rc"
+        
+        # Instead of requiring a restart, source the file now
+        log_info "Sourcing updated shell configuration..."
+        source "$shell_rc" || true  # Continue even if there are errors
+    fi
+}
+
+main() {
+    log_info "Starting development environment setup..."
+    
+    setup_package_manager
+    
+    # Install development tools
+    "${BIN_DIR}/install-tools"
+    
+    setup_git_config
+    setup_vim
+    setup_shell
+    
+    log_info "✨ Setup completed successfully!"
+    log_info "NOTE: Some changes may require a new terminal session to take full effect"
+    log_info "You can either:"
+    log_info "1. Open a new terminal window, or"
+    log_info "2. Run: exec \$SHELL -l"
+}
+
+main "$@"

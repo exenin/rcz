@@ -1,3 +1,94 @@
-for i in $(cat ~/.rcz/f.txt);do source ~/.rcz/$i; done
+#!/bin/bash
 
-for i in secblu secred; do source ~/.rcz/$i/init; done
+# Don't exit on errors when sourcing
+set +e
+
+# Base directory of the repository
+export RCZ_HOME="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export RCZ_SCRIPTS="${RCZ_HOME}/scripts"
+export RCZ_BIN="${RCZ_HOME}/bin"
+export RCZ_CONFIG="${RCZ_HOME}/config"
+
+# Colors for output
+export COLOR_RESET='\033[0m'
+export COLOR_RED='\033[0;31m'
+export COLOR_GREEN='\033[0;32m'
+export COLOR_YELLOW='\033[1;33m'
+export COLOR_BLUE='\033[0;34m'
+export COLOR_PURPLE='\033[0;35m'
+export COLOR_CYAN='\033[0;36m'
+
+# Helper functions
+log_info() {
+    echo -e "${COLOR_GREEN}[INFO]${COLOR_RESET} $1" >&2
+}
+
+log_warning() {
+    echo -e "${COLOR_YELLOW}[WARN]${COLOR_RESET} $1" >&2
+}
+
+log_error() {
+    echo -e "${COLOR_RED}[ERROR]${COLOR_RESET} $1" >&2
+}
+
+log_debug() {
+    if [ "${DEBUG:-0}" = "1" ]; then
+        echo -e "${COLOR_BLUE}[DEBUG]${COLOR_RESET} $1" >&2
+    fi
+}
+
+# Source files safely with better error handling
+safe_source() {
+    if [ -f "$1" ]; then
+        # Use . instead of source for better compatibility
+        . "$1" 2>/dev/null || log_warning "Error sourcing: $1"
+    else
+        log_debug "File not found: $1"
+    fi
+}
+
+# Load environment variables first
+safe_source "${RCZ_SCRIPTS}/core/envs.sh"
+
+# Source core scripts
+for script in "${RCZ_SCRIPTS}/core"/*.sh; do
+    safe_source "$script"
+done
+
+# Source tool scripts
+for script in "${RCZ_SCRIPTS}/tools"/*.sh; do
+    safe_source "$script"
+done
+
+# Source cloud scripts
+for script in "${RCZ_SCRIPTS}/cloud"/*.sh; do
+    safe_source "$script"
+done
+
+# Source gitlab scripts
+for script in "${RCZ_SCRIPTS}/gitlab"/*.sh; do
+    safe_source "$script"
+done
+
+# Add bin directory to PATH if not already there
+if [[ ":$PATH:" != *":${RCZ_BIN}:"* ]]; then
+    export PATH="${RCZ_BIN}:${PATH}"
+fi
+
+# Print welcome message if interactive
+if [ -t 0 ]; then
+    log_info "RCZ environment loaded successfully!"
+    log_info "Type 'rcz_help' for available commands"
+fi
+
+# Export functions one by one instead of all at once
+export -f log_info
+export -f log_warning
+export -f log_error
+export -f log_debug
+export -f safe_source
+
+# Re-enable error checking if needed
+if [[ "${RCZ_STRICT:-0}" == "1" ]]; then
+    set -e
+fi

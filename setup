@@ -1,2 +1,70 @@
-source ~/.rcz/sourceme
-rczsetup
+#!/bin/bash
+
+# Set strict error handling
+set -euo pipefail
+
+# Source environment variables if not already sourced
+if [ -z "${DEV_HOME:-}" ]; then
+    source ./sourceme
+fi
+
+# Function to check if a command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Function to install package manager if needed
+setup_package_manager() {
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        if ! command_exists brew; then
+            echo "Installing Homebrew..."
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        fi
+    fi
+}
+
+# Function to install common development tools
+install_dev_tools() {
+    echo "Installing development tools..."
+    
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        brew install git vim curl wget
+    elif command_exists apt-get; then
+        sudo apt-get update
+        sudo apt-get install -y git vim curl wget
+    elif command_exists yum; then
+        sudo yum install -y git vim curl wget
+    fi
+}
+
+# Function to setup git configuration
+setup_git() {
+    if ! command_exists git; then
+        echo "Git not found. Installing..."
+        install_dev_tools
+    fi
+
+    # Prompt for git configuration if not set
+    if [ -z "$(git config --global user.name)" ]; then
+        read -p "Enter your Git name: " git_name
+        git config --global user.name "$git_name"
+    fi
+
+    if [ -z "$(git config --global user.email)" ]; then
+        read -p "Enter your Git email: " git_email
+        git config --global user.email "$git_email"
+    fi
+}
+
+# Main setup process
+main() {
+    echo "Starting development environment setup..."
+    
+    setup_package_manager
+    install_dev_tools
+    setup_git
+    
+    echo "Setup completed successfully!"
+}
+
+main "$@"

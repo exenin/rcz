@@ -1,0 +1,76 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# Load common functions
+source "$(dirname "$0")/../scripts/sourceme"
+
+# Common development tools for all platforms
+COMMON_TOOLS=(
+    "git"
+    "vim"
+    "curl"
+    "wget"
+    "tmux"
+    "jq"
+    "tree"
+    "htop"
+)
+
+# Additional macOS specific tools
+MACOS_TOOLS=(
+    "coreutils"
+    "gnu-sed"
+    "grep"
+)
+
+install_macos_tools() {
+    log_info "Installing macOS tools..."
+    
+    # Install Xcode Command Line Tools if needed
+    if ! xcode-select -p &>/dev/null; then
+        log_info "Installing Xcode Command Line Tools..."
+        xcode-select --install
+    fi
+
+    # Install common tools
+    brew install "${COMMON_TOOLS[@]}"
+    
+    # Install macOS specific tools
+    brew install "${MACOS_TOOLS[@]}"
+}
+
+install_linux_tools() {
+    local pkg_manager=""
+    if command -v apt-get >/dev/null; then
+        pkg_manager="apt-get"
+        log_info "Updating apt package list..."
+        sudo apt-get update
+    elif command -v yum >/dev/null; then
+        pkg_manager="yum"
+        log_info "Updating yum package list..."
+        sudo yum update -y
+    else
+        log_warning "Unsupported package manager"
+        exit 1
+    fi
+
+    log_info "Installing Linux tools using ${pkg_manager}..."
+    if [ "$pkg_manager" = "apt-get" ]; then
+        sudo apt-get install -y "${COMMON_TOOLS[@]}"
+    else
+        sudo yum install -y "${COMMON_TOOLS[@]}"
+    fi
+}
+
+main() {
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        install_macos_tools
+    else
+        install_linux_tools
+    fi
+    
+    log_info "Tool installation completed successfully!"
+}
+
+main "$@"

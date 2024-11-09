@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# Source environment
+source "$(dirname "$0")/../sourceme"
+
+# Install development tools
+setup_dev_tools
+
+# Configure git
+setup_git_config
+
+# Configure vim
+setup_vim_config
+
+log_info "Installation completed successfully!" 
